@@ -41,10 +41,9 @@ def on_message(self, self_data, msg):
     }
 
     reading_bytes = json.dumps(reading).encode('utf-8') 
-    print (str(reading_bytes))
-
     producer.send('sensor-readings', key=b'TD46EF', value=reading_bytes)
-    print ("sent to Kafka producer")
+    print (str(reading_bytes))
+    #print ("sent to Kafka producer")
 
 
 print ("setting up MQTT client connection to a broker")
