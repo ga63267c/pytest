@@ -1,4 +1,5 @@
 from kafka import KafkaProducer
+from time import sleep
 
 print ("settting up producer")
 producer = KafkaProducer(bootstrap_servers='bae-es-kafka-bootstrap.mark-nr.svc:9092')
