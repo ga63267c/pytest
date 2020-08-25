@@ -37,7 +37,7 @@ def on_message(self, self_data, msg):
             "unit": read_unit
         }
     };
-    #print (json.dumps(reading))
+    print (json.dumps(reading))
     producer.send('sensor-readings', key=b'TD46EF', value=reading)
 
 
