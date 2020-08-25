@@ -41,9 +41,7 @@ def on_message(self, self_data, msg):
 
     reading_string = json.dumps(reading)
     print (reading_string)
-    producer.send('sensor-readings', key=b'TD46EF', value=reading_string)
-
-
+    producer.send('sensor-readings', key=b'TD46EF', value=reading)
 
 
 print ("setting up MQTT client connection to a broker")
@@ -67,7 +65,7 @@ mqttc.subscribe("rher-poc/edge/current", 0)
 
 
 print ("settting up Kafka producer")
-producer = KafkaProducer(bootstrap_servers='bae-es-kafka-bootstrap.mark-nr.svc:9092')
+producer = KafkaProducer(bootstrap_servers='bae-es-kafka-bootstrap.mark-nr.svc:9092',value_serializer=lambda x: dumps(x).encode('utf-8') )
 
 # Continue the network loop, exit when an error occurs
 print ("starting MQTT listen loop")
