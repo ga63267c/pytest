@@ -53,9 +53,6 @@ mqttc.on_message = on_message
 mqttc.on_connect = on_connect
 mqttc.on_subscribe = on_subscribe
 
-# Uncomment to enable debug messages
-mqttc.on_log = on_log
-
 # Connect
 mqttc.connect("mqtt.rher-edge-poc.hopto.org", 1883)
 
