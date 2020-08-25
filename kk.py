@@ -26,6 +26,7 @@ def on_message(self, self_data, msg):
         read_unit = "?"
         read_type = "?"
 
+    print ("creating mission data")
     reading = {
         "sensor-processor": {
             "timestamp": datetime.now().isoformat(),
@@ -36,7 +37,8 @@ def on_message(self, self_data, msg):
             "value": msg.payload,
             "unit": read_unit
         }
-    };
+    }
+
     reading_string = json.dumps(reading)
     print (reading_string)
     producer.send('sensor-readings', key=b'TD46EF', value=reading_string)
@@ -64,7 +66,7 @@ mqttc.subscribe("rher-poc/edge/temperature", 0)
 mqttc.subscribe("rher-poc/edge/current", 0)
 
 
-print ("settting up producer")
+print ("settting up Kafka producer")
 producer = KafkaProducer(bootstrap_servers='bae-es-kafka-bootstrap.mark-nr.svc:9092')
 
 # Continue the network loop, exit when an error occurs
