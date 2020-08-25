@@ -33,11 +33,12 @@ def on_message(self, self_data, msg):
     	},
         "sensor-reading": {
             "type": read_type,
-            "value": str(msg.payload),
+            "value": msg.payload,
             "unit": read_unit
         }
     };
-    print (json.dumps(reading))
+    reading_string = json.dumps(reading)
+    print (reading_string)
     producer.send('sensor-readings', key=b'TD46EF', value=reading)
 
 
