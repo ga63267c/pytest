@@ -14,7 +14,7 @@ def on_subscribe(mid):
     print("on_subscribe: " + str(mid) )
 
 def on_message(self, self_data, msg):
-    #print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
+    print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
 
     if msg.topic == "rher-poc/edge/current":
         read_unit = "amps"
@@ -39,7 +39,7 @@ def on_message(self, self_data, msg):
     };
     reading_string = json.dumps(reading)
     print (reading_string)
-    producer.send('sensor-readings', key=b'TD46EF', value=reading)
+    producer.send('sensor-readings', key=b'TD46EF', value=reading_string)
 
 
 
