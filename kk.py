@@ -14,7 +14,7 @@ def on_subscribe(mid):
     print("on_subscribe: " + str(mid) )
 
 def on_message(self, self_data, msg):
-    print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
+    #print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
 
     if msg.topic == "rher-poc/edge/current":
         read_unit = "amps"
@@ -26,7 +26,7 @@ def on_message(self, self_data, msg):
         read_unit = "?"
         read_type = "?"
 
-    print ("creating mission data")
+    #print ("creating mission data")
     reading = {
         "sensor-processor": {
             "timestamp": datetime.now().isoformat(),
@@ -40,8 +40,8 @@ def on_message(self, self_data, msg):
     }
 
     reading_string = json.dumps(reading)
-    print (reading_string)
     producer.send('sensor-readings', key=b'TD46EF', value=reading)
+    print (reading_string)
 
 
 print ("setting up MQTT client connection to a broker")
@@ -54,7 +54,7 @@ mqttc.on_connect = on_connect
 mqttc.on_subscribe = on_subscribe
 
 # Uncomment to enable debug messages
-#mqttc.on_log = on_log
+mqttc.on_log = on_log
 
 # Connect
 mqttc.connect("mqtt.rher-edge-poc.hopto.org", 1883)
@@ -65,7 +65,7 @@ mqttc.subscribe("rher-poc/edge/current", 0)
 
 
 print ("settting up Kafka producer")
-producer = KafkaProducer(bootstrap_servers='bae-es-kafka-bootstrap.mark-nr.svc:9092',value_serializer=lambda x: dumps(x).encode('utf-8') )
+producer = KafkaProducer(bootstrap_servers=['bae-es-kafka-bootstrap.mark-nr.svc:9092'],value_serializer=lambda x: dumps(x).encode('utf-8') )
 
 # Continue the network loop, exit when an error occurs
 print ("starting MQTT listen loop")
