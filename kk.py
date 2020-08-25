@@ -34,7 +34,7 @@ def on_message(self, self_data, msg):
     	},
         "sensor-reading": {
             "type": read_type,
-            "value": msg.payload,
+            "value": str(msg.payload),
             "unit": read_unit
         }
     }
