@@ -35,7 +35,7 @@ def on_message(self, self_data, msg):
     	},
         "sensor-reading": {
             "type": read_type,
-            "value": msg.payload,
+            "value": msg.payload.decode('utf-8'),
             "unit": read_unit
         }
     }
